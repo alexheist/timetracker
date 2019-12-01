@@ -1,0 +1,56 @@
+version: '3.7'
+
+services:
+
+  # React Frontend
+  # =======================
+  frontend:
+    image: timetracker-frontend:0.1.0
+    build: ../frontend
+    command: npm start
+    volumes:
+      - ../frontend:/usr/src/frontend/
+      - frontend_static:/usr/src/frontend/build
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  # Django Backend
+  # =======================
+  backend:
+    image: timetracker-backend:0.1.0
+    build: ../backend
+    command: /usr/src/backend/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ../backend/:/usr/src/backend/
+      - backend_static:/usr/src/backend/static
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_SECRET_KEY=foobar
+      - DJANGO_DEBUG=1
+      - DB_ENGINE=django.db.backends.postgresql
+      - DB_NAME=timetracker_dev
+      - DB_USER=dev_user
+      - DB_PASSWORD=devUserPa$$w0rd
+      - DB_HOST=db
+      - DB_PORT=5432
+    depends_on:
+      - db
+
+  # Postgres Database
+  # =======================
+  db:
+    image: postgres:11.2-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=dev_user
+      - POSTGRES_PASSWORD=devUserPa$$w0rd
+      - POSTGRES_DB=timetracker_dev
+
+volumes:
+  postgres_data:
+  backend_static:
+  frontend_static:

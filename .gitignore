@@ -1,0 +1,21 @@
+# Env
+bin/
+include/
+lib/
+lib64
+share/
+*.env
+*.pyc
+pyvenv.cfg
+*.git
+
+# Housekeeping
+*.old
+.*.sw*
+
+# Collected Static & Media
+backend/static/*
+backend/media/*
+
+# Migrations
+migrations/
