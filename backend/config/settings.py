@@ -22,6 +22,7 @@ THIRD_PARTY_APPS = (
 )
 
 LOCAL_APPS = (
+    'api',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -116,5 +117,6 @@ REST_FRAMEWORK = {
 
 # Authentication
 # ===============================
+AUTH_USER_MODEL = 'api.User'
 LOGIN_REDIRECT_URL = '/api'
 SESSION_COOKIE_AGE = 3600
