@@ -111,6 +111,9 @@ MEDIA_ROOT = os.path.join(ROOT_DIR, 'media')
 # Rest Framework
 # ===============================
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
     'DEFAULT_PERMISSION_CLASSES': [
     ]
 }
