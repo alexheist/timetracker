@@ -26,10 +26,24 @@ html {
 }
 
 body {
+    height: 100vh;
     margin: 0;
 }
 
+#root {
+    height: 100%;
+}
+
+#page-container {
+    height: 100%;
+    margin-top: 75px;
+}
+
 nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
     background-color: var(--nord0);
     color: var(--nord6);
 
@@ -59,5 +73,5 @@ nav h2 {
 .nav-links a {
     color: var(--nord6);
     text-decoration: none;
-    margin: 10px;
+    margin: 20px;
 }
