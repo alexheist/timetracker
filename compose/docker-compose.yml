@@ -7,6 +7,7 @@ services:
   frontend:
     image: timetracker-frontend:0.1.0
     build: ../frontend
+    tty: true
     command: npm start
     volumes:
       - ../frontend:/usr/src/frontend/
@@ -21,6 +22,7 @@ services:
   backend:
     image: timetracker-backend:0.1.0
     build: ../backend
+    tty: true
     command: /usr/src/backend/manage.py runserver 0.0.0.0:8000
     volumes:
       - ../backend/:/usr/src/backend/

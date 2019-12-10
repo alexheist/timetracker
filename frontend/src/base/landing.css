@@ -1,22 +1,19 @@
-.App {
-  text-align: center;
+#page-container {
+    display: grid;
+    grid-template-rows: 300px 2fr;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
-.App-logo {
-  height: 40vmin;
+#page-container h1 {
+    font-size: 3em;
+
+    grid-row: 1;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    justify-self: center;
+    align-self: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #09d3ac;
+.card {
+    grid-row: 2;
 }
