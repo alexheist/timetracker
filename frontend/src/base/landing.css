@@ -1,44 +1,43 @@
 #page-container {
-    display: grid;
-    grid-template-rows: 300px calc(100% - 300px);
-    grid-template-columns: 1fr;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 300px calc(100% - 300px);
 }
 
 #page-container h1 {
-    font-size: 3.5em;
-    grid-row: 1;
-    justify-self: center;
-    align-self: center;
+  align-self: center;
+  font-size: 3.5em;
+  grid-row: 1;
+  justify-self: center;
 }
 
 em {
-    color: var(--nord8);
-    font-style: normal;
+  color: var(--nord8);
+  font-style: normal;
 }
 
 #copy {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    background-color: var(--nord3);
-    color: var(--nord6);
-    grid-row: 2;
-
-    display: grid;
-    grid-template-rows: 100px calc(100% - 100px);
-    grid-template-columns: 1fr 1fr 1fr;
+  background-color: var(--nord3);
+  color: var(--nord6);
+  display: grid;
+  grid-row: 2;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 100px calc(100% - 100px);
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .card {
-    text-align: center;
-    margin-top: 30px;
-    padding: 20px;
+  margin-top: 30px;
+  padding: 20px;
+  text-align: center;
 }
 
 .card p {
-    background-color: var(--nord6);
-    color: var(--nord1);
-    border-radius: 5px;
-    box-shadow: 20px 20px 20px var(--nord1);
-    padding: 20px 5px;
+  background-color: var(--nord6);
+  border-radius: 5px;
+  box-shadow: 20px 20px 20px var(--nord1);
+  color: var(--nord1);
+  padding: 20px 5px;
 }
