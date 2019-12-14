@@ -2,54 +2,6 @@ import React, { Component } from "react";
 import Modal from "./formModal";
 import "./auth.css";
 
-class Form extends Component {
-  handleChange(id) {
-    let label = document.getElementById(id);
-    let input = document.getElementById(id.slice(0, -6));
-    if (input.value.length > 0 && window.innerWidth > 768) {
-      label.setAttribute("style", "color: transparent");
-      label.innerHTML =
-        input.name.charAt(0).toUpperCase() + input.name.slice(1);
-      input.setAttribute("style", "border-color: #CCCCCC;");
-    } else {
-      label.setAttribute("style", "color: #656565");
-    }
-    this.setState({
-      [input.name]: input.value
-    });
-    document.getElementById("success-response").innerHTML = "";
-  }
-
-  render() {
-    return (
-      <form>
-        <div id="email-field">
-          <label id="email-label" htmlFor="email">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            onChange={() => this.handleChange("email-label")}
-          />
-        </div>
-        <div id="password-field">
-          <label id="password-label" htmlFor="password">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            onChange={() => this.handleChange("email-label")}
-          />
-        </div>
-      </form>
-    );
-  }
-}
-
 class Signup extends Component {
   state = { show: false };
 
@@ -65,9 +17,34 @@ class Signup extends Component {
     return (
       <>
         <Modal show={this.state.show} handleClose={this.hideModal}>
-          <Form />
+          <h2>Signup</h2>
+          <form id="signupForm">
+            <div className="fields">
+              <label id="email-label" htmlFor="email">
+                Email Address
+              </label>
+              <input type="email" id="email" name="email" />
+              <label id="fname-label" htmlFor="fname">
+                First Name
+              </label>
+              <input type="text" id="fname" name="fname" />
+              <label id="lname-label" htmlFor="lname">
+                Last Name
+              </label>
+              <input type="text" id="lname" name="fname" />
+              <label id="password-label" htmlFor="password">
+                Password
+              </label>
+              <input type="password" id="password" name="password" />
+              <label id="confirm-label" htmlFor="confirm">
+                Confirm Password
+              </label>
+              <input type="password" id="confirm" name="confirm" />
+            </div>
+            <input className="actionBtn" type="submit" value="Submit" />
+          </form>
         </Modal>
-        <button type="button" onClick={this.showModal}>
+        <button className="navBtn" type="button" onClick={this.showModal}>
           Signup
         </button>
       </>
