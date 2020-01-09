@@ -69,6 +69,10 @@ nav h2 {
   margin-right: 40px;
 }
 
+button {
+  cursor: pointer;
+}
+
 .navBtn {
   background-color: transparent;
   border: none;

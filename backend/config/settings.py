@@ -26,6 +26,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 ALLOWED_HOSTS = ["*"]
 
 MIDDLEWARE = [
+    #    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -106,6 +107,19 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_PERMISSION_CLASSES": [],
 }
+
+# CORS_ORIGIN_WHITELIST = (
+#    "http://localhost",
+#    "http://127.0.0.1",
+#    "https://localhost",
+#    "https://127.0.0.1",
+#    "http://localhost:3000",
+#    "http://127.0.0.1:3000",
+#    "https://localhost:3000",
+#    "https://127.0.0.1:3000",
+# )
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Authentication
 # ===============================
