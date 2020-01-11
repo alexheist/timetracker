@@ -1,6 +1,6 @@
 import React from "react";
 
-const Modal = ({ handleClose, show, children }) => {
+const FormModal = ({ handleClose, show, children }) => {
   const showHideClassName = show ? "modal display-block" : "modal display-none";
 
   return (
@@ -15,4 +15,4 @@ const Modal = ({ handleClose, show, children }) => {
   );
 };
 
-export default Modal;
+export default FormModal;

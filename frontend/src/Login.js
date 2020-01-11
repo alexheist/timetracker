@@ -1,9 +1,10 @@
-import React, { Component } from "react";
-import Modal from "./formModal";
-import "./auth.css";
-import PropTypes from "prop-types";
+import React from "react";
 
-class Login extends Component {
+import FormModal from "./FormModal";
+import PropTypes from "prop-types";
+import "./styles/auth.css";
+
+class Login extends React.Component {
   state = { show: false };
 
   showModal = () => {
@@ -17,7 +18,7 @@ class Login extends Component {
   render() {
     return (
       <>
-        <Modal show={this.state.show} handleClose={this.hideModal}>
+        <FormModal show={this.state.show} handleClose={this.hideModal}>
           <h2>Login</h2>
           <form id="loginForm" onSubmit={this.props.handleLogin}>
             <div className="fields">
@@ -32,7 +33,7 @@ class Login extends Component {
             </div>
             <input className="actionBtn" type="submit" value="Submit" />
           </form>
-        </Modal>
+        </FormModal>
         <span></span>
         <button className="navBtn" type="button" onClick={this.showModal}>
           Login

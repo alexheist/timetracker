@@ -1,21 +1,23 @@
 import React from "react";
+
+import Login from "./Login";
 import PropTypes from "prop-types";
-import Login from "./login";
-import Signup from "./signup";
-import logo from "./logo.png";
+import Signup from "./Signup";
+
+import logo from "./assets/logo.png";
 
 function Nav(props) {
   const loggedInLinks = (
+    <button className="navBtn" type="button" onClick={props.handleLogout}>
+      Logout
+    </button>
+  );
+
+  const loggedOutLinks = (
     <>
       <Login handleLogin={props.handleLogin} />
       <Signup />
     </>
-  );
-
-  const loggedOutLinks = (
-    <button className="navBtn" type="button" onClick={props.handleLogout}>
-      Logout
-    </button>
   );
 
   return (

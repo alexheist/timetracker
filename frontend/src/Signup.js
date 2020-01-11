@@ -1,8 +1,9 @@
-import React, { Component } from "react";
-import Modal from "./formModal";
-import "./auth.css";
+import React from "react";
 
-class Signup extends Component {
+import FormModal from "./FormModal";
+import "./styles/auth.css";
+
+class Signup extends React.Component {
   state = { show: false };
 
   showModal = () => {
@@ -16,7 +17,7 @@ class Signup extends Component {
   render() {
     return (
       <>
-        <Modal show={this.state.show} handleClose={this.hideModal}>
+        <FormModal show={this.state.show} handleClose={this.hideModal}>
           <h2>Signup</h2>
           <form id="signupForm">
             <div className="fields">
@@ -43,7 +44,7 @@ class Signup extends Component {
             </div>
             <input className="actionBtn" type="submit" value="Submit" />
           </form>
-        </Modal>
+        </FormModal>
         <button className="navBtn" type="button" onClick={this.showModal}>
           Signup
         </button>
