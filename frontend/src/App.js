@@ -14,27 +14,30 @@ class App extends React.Component {
     };
   }
 
-  handleLogin(event) {
-    event.preventDefault();
+  handleLogin = (e, data) => {
+    e.preventDefault();
 
-    const data = new FormData(event.target);
-    const csrfToken = getCookie("csrftoken");
+    delete data.show;
+    console.log(JSON.stringify(data));
 
-    console.log(data);
-
+    // TODO: Sort out Access-Control-Allow-Origin header
     fetch("http://localhost:8000/api/token/", {
       method: "POST",
       headers: {
-        "X-CSRFToken": csrfToken
+        "Content-Type": "application/json",
+        "X-CSRFToken": getCookie("csrftoken")
       },
-      body: data
+      body: JSON.stringify(data)
     })
-      .then(response => response.json())
-      .then(response => {
-        console.log(response);
-        localStorage.setItem("token", response.token);
+      .then(res => res.json())
+      .then(json => {
+        console.log(json);
+        localStorage.setItem("token", json.token);
+        this.setState({
+          authenticated: true
+        });
       });
-  }
+  };
 
   handleLogout = () => {
     localStorage.removeItem("token");
@@ -54,7 +57,6 @@ class App extends React.Component {
             Take <em>Control</em> of Your Time
           </h1>
           <ul id="copy">
-            <p>Here: {this.state.authenticated}</p>
             <div className="card">
               <h2>Useful Reports</h2>
               <p>Something</p>
