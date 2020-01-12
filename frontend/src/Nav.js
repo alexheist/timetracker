@@ -1,8 +1,6 @@
 import React from "react";
 
-import Login from "./Login";
 import PropTypes from "prop-types";
-import Signup from "./Signup";
 
 import logo from "./assets/logo.png";
 
@@ -13,19 +11,12 @@ function Nav(props) {
     </button>
   );
 
-  const loggedOutLinks = (
-    <>
-      <Login handleLogin={props.handleLogin} />
-      <Signup />
-    </>
-  );
-
   return (
     <nav>
       <img src={logo} alt="Time Tracker" />
       <h2>Time Tracker</h2>
       <ul className={"nav-links"}>
-        {props.authenticated ? loggedInLinks : loggedOutLinks}
+        {props.authenticated ? loggedInLinks : null}
       </ul>
     </nav>
   );
@@ -35,6 +26,5 @@ export default Nav;
 
 Nav.propTypes = {
   authenticated: PropTypes.bool.isRequired,
-  handleLogin: PropTypes.func.isRequired,
   handleLogout: PropTypes.func.isRequired
 };

@@ -1,6 +1,8 @@
 import React from "react";
 
 import Nav from "./Nav";
+import Login from "./Login";
+import Signup from "./Signup";
 import { getCookie } from "./helpers";
 import "./styles/core.css";
 
@@ -50,26 +52,13 @@ class App extends React.Component {
         <Nav
           authenticated={this.state.authenticated}
           handleLogout={this.handleLogout}
-          handleLogin={this.handleLogin}
         />
         <div id="page-container">
           <h1>
             Take <em>Control</em> of Your Time
           </h1>
-          <ul id="copy">
-            <div className="card">
-              <h2>Useful Reports</h2>
-              <p>Something</p>
-            </div>
-            <div className="card">
-              <h2>Invoice Generation</h2>
-              <p>To Put</p>
-            </div>
-            <div className="card">
-              <h2>Simple Management</h2>
-              <p>For Render</p>
-            </div>
-          </ul>
+          <Login handleLogin={this.handleLogin} />
+          <Signup handleLogin={this.handleLogin} />
         </div>
       </>
     );
