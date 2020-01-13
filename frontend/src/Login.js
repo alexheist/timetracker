@@ -24,22 +24,25 @@ class Login extends React.Component {
         id="login-form"
         onSubmit={e => this.props.handleLogin(e, this.state)}
       >
-        <FormField
-          handleChange={this.handleChange}
-          id={"login-email"}
-          name={"email"}
-          label={"Email Address"}
-          type={"email"}
-          value={this.state.email}
-        />
-        <FormField
-          handleChange={this.handleChange}
-          id={"login-password"}
-          name={"password"}
-          label={"Password"}
-          type={"password"}
-          value={this.state.password}
-        />
+        <h2>Login</h2>
+        <div className={"fields"}>
+          <FormField
+            handleChange={this.handleChange}
+            id={"login-email"}
+            name={"email"}
+            label={"Email Address"}
+            type={"email"}
+            value={this.state.email}
+          />
+          <FormField
+            handleChange={this.handleChange}
+            id={"login-password"}
+            name={"password"}
+            label={"Password"}
+            type={"password"}
+            value={this.state.password}
+          />
+        </div>
         <input className="actionBtn" type="submit" value="Login" />
       </form>
     );

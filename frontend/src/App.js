@@ -57,8 +57,8 @@ class App extends React.Component {
           <h1>
             Take <em>Control</em> of Your Time
           </h1>
-          <Login handleLogin={this.handleLogin} />
           <Signup handleLogin={this.handleLogin} />
+          <Login handleLogin={this.handleLogin} />
         </div>
       </>
     );
