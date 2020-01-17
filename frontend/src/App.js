@@ -4,6 +4,7 @@ import Nav from "./Nav";
 import Login from "./Login";
 import Signup from "./Signup";
 import { getCookie } from "./helpers";
+import { shake } from "./animations";
 import "./styles/core.css";
 
 // https://medium.com/@dakota.lillie/django-react-jwt-authentication-5015ee00ef9a
@@ -22,7 +23,6 @@ class App extends React.Component {
     delete data.show;
     console.log(JSON.stringify(data));
 
-    // TODO: Sort out Access-Control-Allow-Origin header
     fetch("http://localhost:8000/api/token/", {
       method: "POST",
       headers: {
@@ -30,15 +30,19 @@ class App extends React.Component {
         "X-CSRFToken": getCookie("csrftoken")
       },
       body: JSON.stringify(data)
-    })
-      .then(res => res.json())
-      .then(json => {
-        console.log(json);
+    }).then(response => {
+      console.log(response);
+      var json = response.json();
+      if (response.ok) {
         localStorage.setItem("token", json.token);
         this.setState({
           authenticated: true
         });
-      });
+      } else {
+        shake("#login-form");
+        console.log("not ok");
+      }
+    });
   };
 
   handleLogout = () => {

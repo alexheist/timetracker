@@ -44,6 +44,7 @@ class Login extends React.Component {
           />
         </div>
         <input className="actionBtn" type="submit" value="Login" />
+        <div className="spinner js-spinner"></div>
       </form>
     );
   }
