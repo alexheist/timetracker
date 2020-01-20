@@ -7,6 +7,7 @@ from rest_framework_simplejwt.views import (TokenObtainPairView,
                                             TokenRefreshView)
 
 router = routers.DefaultRouter()
+router.register(r"users", views.UserViewSet)
 
 urlpatterns = [
     path("api/", include(router.urls)),

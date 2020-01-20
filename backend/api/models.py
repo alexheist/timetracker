@@ -3,15 +3,16 @@ import string
 import uuid
 
 from django.conf import settings
-from django.contrib.auth.base_user import BaseUserManager
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, password=None):
+    def create_user(
+        self, email, password=None, first_name=None, last_name=None, is_manager=False
+    ):
         if email is None:
             raise TypeError("Users must have an email address.")
         user = self.model(email=self.normalize_email(email))
@@ -19,25 +20,32 @@ class UserManager(BaseUserManager):
         user.save()
         return user
 
-    def create_superuser(self, email, password):
+    def create_superuser(
+        self, email, password=None, first_name=None, last_name=None, is_manager=False
+    ):
         if password is None:
             raise TypeError("Superusers must have a password.")
-        user = self.create_user(email, password)
+        user = self.create_user(email, password, first_name, last_name, is_manager)
         user.is_superuser = True
         user.is_staff = True
         user.save()
         return user
 
 
-class User(AbstractUser):
+class User(AbstractBaseUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(unique=True)
+    first_name = models.CharField(max_length=63)
+    last_name = models.CharField(max_length=63)
     is_manager = models.BooleanField(default=False)
 
     objects = UserManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ["first_name", "last_name"]
+
+    def get_full_name(self):
+        return f"{self.first_name} {self.last_name}"
 
 
 class Team(models.Model):

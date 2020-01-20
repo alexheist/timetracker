@@ -30,19 +30,24 @@ class App extends React.Component {
         "X-CSRFToken": getCookie("csrftoken")
       },
       body: JSON.stringify(data)
-    }).then(response => {
-      console.log(response);
-      var json = response.json();
-      if (response.ok) {
-        localStorage.setItem("token", json.token);
-        this.setState({
-          authenticated: true
-        });
-      } else {
-        shake("#login-form");
-        console.log("not ok");
-      }
-    });
+    })
+      .then(res => {
+        if (!res.ok) {
+          shake("#login-form");
+          console.log("not ok");
+          return null;
+        }
+        return res.json();
+      })
+      .then(json => {
+        if (json) {
+          localStorage.setItem("refresh", json.refresh);
+          localStorage.setItem("access", json.access);
+          this.setState({
+            authenticated: true
+          });
+        }
+      });
   };
 
   handleLogout = () => {
