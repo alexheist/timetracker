@@ -19,10 +19,6 @@ class App extends React.Component {
 
   handleLogin = (e, data) => {
     e.preventDefault();
-
-    delete data.show;
-    console.log(JSON.stringify(data));
-
     fetch("http://localhost:8000/api/token/", {
       method: "POST",
       headers: {
@@ -34,7 +30,35 @@ class App extends React.Component {
       .then(res => {
         if (!res.ok) {
           shake("#login-form");
-          console.log("not ok");
+          return null;
+        }
+        return res.json();
+      })
+      .then(json => {
+        if (json) {
+          localStorage.setItem("refresh", json.refresh);
+          localStorage.setItem("access", json.access);
+          this.setState({
+            authenticated: true
+          });
+        }
+      });
+  };
+
+  handleSignup = (e, data) => {
+    e.preventDefault();
+    console.log(JSON.stringify(data));
+    fetch("http://localhost:8000/api/users/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": getCookie("csrftoken")
+      },
+      body: JSON.stringify(data)
+    })
+      .then(res => {
+        if (!res.ok) {
+          shake("#signup-form");
           return null;
         }
         return res.json();
@@ -66,7 +90,7 @@ class App extends React.Component {
           <h1>
             Take <em>Control</em> of Your Time
           </h1>
-          <Signup handleLogin={this.handleLogin} />
+          <Signup handleSignup={this.handleSignup} />
           <Login handleLogin={this.handleLogin} />
         </div>
       </>

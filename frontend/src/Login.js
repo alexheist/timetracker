@@ -14,14 +14,11 @@ class Login extends React.Component {
     });
   };
 
-  handleFocus = () => {
-    this.setState({ focused: false });
-  };
-
   render() {
     return (
       <form
         id="login-form"
+        method="post"
         onSubmit={e => this.props.handleLogin(e, this.state)}
       >
         <h2>Login</h2>

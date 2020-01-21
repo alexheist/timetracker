@@ -3,19 +3,29 @@ import React from "react";
 import FormField from "./components/FormField";
 
 class Signup extends React.Component {
-  state = { show: false };
-
-  showModal = () => {
-    this.setState({ show: true });
+  state = {
+    email: "",
+    first_name: "",
+    last_name: "",
+    password: "",
+    confirmation: ""
   };
 
-  hideModal = () => {
-    this.setState({ show: false });
+  handleChange = e => {
+    const name = e.target.name;
+    const value = e.target.value;
+    this.setState({
+      [name]: value
+    });
   };
 
   render() {
     return (
-      <form id="signup-form">
+      <form
+        id="signup-form"
+        onSubmit={e => this.props.handleSignup(e, this.state)}
+        method="post"
+      >
         <h2>Sign Up</h2>
         <div className={"flex-fields"}>
           <FormField
@@ -29,18 +39,18 @@ class Signup extends React.Component {
           <FormField
             handleChange={this.handleChange}
             id={"fname"}
-            name={"fname"}
+            name={"first_name"}
             label={"First Name"}
             type={"text"}
-            value={this.state.fname}
+            value={this.state.first_name}
           />
           <FormField
             handleChange={this.handleChange}
             id={"lname"}
-            name={"lname"}
+            name={"last_name"}
             label={"Last Name"}
             type={"text"}
-            value={this.state.lname}
+            value={this.state.last_name}
           />
           <FormField
             handleChange={this.handleChange}
