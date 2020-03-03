@@ -2,8 +2,8 @@ FROM node:8-alpine
 
 WORKDIR /usr/src/frontend
 
-COPY package.json package-lock.json /usr/src/frontend/
+COPY package.json yarn.lock /usr/src/frontend/
 
-RUN npm install
+RUN yarn install
 
 COPY . /usr/src/frontend

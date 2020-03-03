@@ -1,16 +1,15 @@
-version: '3.7'
+version: "3.7"
 
 services:
-
   # React Frontend
   # =======================
   frontend:
     image: timetracker-frontend:0.1.0
-    build: ../frontend
+    build: frontend
     tty: true
-    command: npm start
+    command: yarn start
     volumes:
-      - ../frontend:/usr/src/frontend/
+      - ./frontend/:/usr/src/frontend/
       - frontend_static:/usr/src/frontend/build
     ports:
       - "3000:3000"
@@ -21,11 +20,11 @@ services:
   # =======================
   backend:
     image: timetracker-backend:0.1.0
-    build: ../backend
+    build: backend
     tty: true
     command: /usr/src/backend/manage.py runserver 0.0.0.0:8000
     volumes:
-      - ../backend/:/usr/src/backend/
+      - ./backend/:/usr/src/backend/
       - backend_static:/usr/src/backend/static
     ports:
       - "8000:8000"
