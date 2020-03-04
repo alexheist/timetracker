@@ -47,7 +47,6 @@ class App extends React.Component {
 
   handleSignup = (e, data) => {
     e.preventDefault();
-    console.log(JSON.stringify(data));
     fetch("http://localhost:8000/api/users/", {
       method: "POST",
       headers: {
