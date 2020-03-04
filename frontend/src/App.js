@@ -13,7 +13,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      authenticated: localStorage.getItem("token") ? true : false
+      authenticated:
+        localStorage.getItem("refresh") || localStorage.getItem("access")
+          ? true
+          : false
     };
   }
 
@@ -74,11 +77,30 @@ class App extends React.Component {
   };
 
   handleLogout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("refresh");
+    localStorage.removeItem("access");
     this.setState({ authenticated: false });
   };
 
   render() {
+    const authLanding = (
+      <>
+        <h1>
+          Take <em>Control</em> of Your Time
+        </h1>
+        <Signup handleSignup={this.handleSignup} />
+        <Login handleLogin={this.handleLogin} />
+      </>
+    );
+
+    const appLanding = (
+      <>
+        <h1>Hey</h1>
+      </>
+    );
+
+    console.log(localStorage);
+
     return (
       <>
         <Nav
@@ -86,11 +108,7 @@ class App extends React.Component {
           handleLogout={this.handleLogout}
         />
         <div id="page-container">
-          <h1>
-            Take <em>Control</em> of Your Time
-          </h1>
-          <Signup handleSignup={this.handleSignup} />
-          <Login handleLogin={this.handleLogin} />
+          {this.state.authenticated ? appLanding : authLanding}
         </div>
       </>
     );
