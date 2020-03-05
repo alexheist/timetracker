@@ -54,12 +54,11 @@
   width: 100%;
 
   &__fields {
-    align-content: flex-start;
-    -webkit-box-pack: space-evenly;
-    display: -webkit-box;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+    -webkit-column-gap: 20px;
+    -moz-column-gap: 20px;
+    column-gap: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     margin: 0 auto;
   }
 

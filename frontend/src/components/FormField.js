@@ -18,7 +18,13 @@ class FormField extends React.Component {
 
   render() {
     return (
-      <div className={"field" + (this.state.focused ? " field--active" : "")}>
+      <div
+        className={
+          "field" +
+          (this.state.focused ? " field--active" : "") +
+          (this.props.double ? " field--double" : "")
+        }
+      >
         <label
           className="field__label"
           id={this.props.name + "-label"}
@@ -49,5 +55,6 @@ FormField.propTypes = {
   label: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired
+  id: PropTypes.string.isRequired,
+  double: PropTypes.bool
 };

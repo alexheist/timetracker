@@ -36,6 +36,7 @@ class Signup extends React.Component {
             label={"Email Address"}
             type={"email"}
             value={this.state.email}
+            double={true}
           />
           <FormField
             handleChange={this.handleChange}

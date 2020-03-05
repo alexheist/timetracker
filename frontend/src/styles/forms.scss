@@ -2,6 +2,7 @@
 
 .field {
   border-bottom: solid 1px $nord4;
+  margin: 5px 0;
   padding: 0;
   position: relative;
 
@@ -28,5 +29,9 @@
   &--active .field__label {
     -webkit-transform: translate(0, 0px) scale(0.75);
     transform: translate(0, 0px) scale(0.75);
+  }
+
+  &--double {
+    grid-column: span 2;
   }
 }

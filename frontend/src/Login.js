@@ -31,6 +31,7 @@ class Login extends React.Component {
             label={"Email Address"}
             type={"email"}
             value={this.state.email}
+            double={true}
           />
           <FormField
             handleChange={this.handleChange}
@@ -39,6 +40,7 @@ class Login extends React.Component {
             label={"Password"}
             type={"password"}
             value={this.state.password}
+            double={true}
           />
         </div>
         <input className="auth-form__btn" type="submit" value="Login" />
