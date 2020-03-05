@@ -1,0 +1,79 @@
+@import "base";
+
+.nav {
+  background-color: $nord0;
+  color: $nord6;
+  display: grid;
+  grid-template-columns: 100px 200px 1fr;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+
+  &__logo {
+    align-self: center;
+    justify-self: start;
+    margin: 10px;
+    max-width: 70px;
+  }
+
+  &__heading {
+    align-self: center;
+  }
+
+  &__links {
+    align-self: center;
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
+    margin-right: 40px;
+  }
+
+  &__btn {
+    background-color: transparent;
+    border: none;
+    color: $nord6;
+    cursor: pointer;
+    font-size: 1em;
+    margin: 0 20px;
+  }
+}
+
+.auth-form {
+  align-self: center;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 20px 20px 20px $nord4;
+  height: 300px;
+  justify-self: center;
+  margin: 0 20px;
+  max-width: 400px;
+  padding: 20px;
+  position: relative;
+  text-align: center;
+  width: 100%;
+
+  &__fields {
+    align-content: flex-start;
+    -webkit-box-pack: space-evenly;
+    display: -webkit-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 0 auto;
+  }
+
+  &__btn {
+    background-color: $nord8;
+    border: none;
+    border-radius: 5px;
+    bottom: 20px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 7px 10px;
+    position: absolute;
+    right: 60px;
+  }
+}

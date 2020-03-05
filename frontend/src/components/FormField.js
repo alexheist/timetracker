@@ -1,7 +1,7 @@
 import React from "react";
 
 import PropTypes from "prop-types";
-import "../styles/forms.css";
+import "../styles/forms.scss";
 
 class FormField extends React.Component {
   state = { focused: false };
@@ -18,13 +18,16 @@ class FormField extends React.Component {
 
   render() {
     return (
-      <div
-        className={"float-container" + (this.state.focused ? " active" : "")}
-      >
-        <label id={this.props.name + "-label"} htmlFor={this.props.id}>
+      <div className={"field" + (this.state.focused ? " field--active" : "")}>
+        <label
+          className="field__label"
+          id={this.props.name + "-label"}
+          htmlFor={this.props.id}
+        >
           {this.props.label}
         </label>
         <input
+          className="field__input"
           type={this.props.type}
           id={this.props.id}
           name={this.props.name}

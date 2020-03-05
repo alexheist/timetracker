@@ -1,0 +1,32 @@
+@import "base";
+
+.field {
+  border-bottom: solid 1px $nord4;
+  padding: 0;
+  position: relative;
+
+  &__label {
+    color: $nord3;
+    font-size: 16px;
+    position: absolute;
+    -webkit-transform: translate(0, 16px) scale(1);
+    transform: translate(0, 16px) scale(1);
+    -webkit-transform-origin: top left;
+    transform-origin: top left;
+    -webkit-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+  }
+
+  &__input {
+    border: none;
+    font-size: 16px;
+    outline: 0;
+    padding: 16px 0 5px;
+    width: 100%;
+  }
+
+  &--active .field__label {
+    -webkit-transform: translate(0, 0px) scale(0.75);
+    transform: translate(0, 0px) scale(0.75);
+  }
+}

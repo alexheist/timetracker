@@ -5,7 +5,8 @@ import Login from "./Login";
 import Signup from "./Signup";
 import { getCookie } from "./helpers";
 import { shake } from "./animations";
-import "./styles/core.css";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import "./styles/core.scss";
 
 // https://medium.com/@dakota.lillie/django-react-jwt-authentication-5015ee00ef9a
 
@@ -85,9 +86,6 @@ class App extends React.Component {
   render() {
     const authLanding = (
       <>
-        <h1>
-          Take <em>Control</em> of Your Time
-        </h1>
         <Signup handleSignup={this.handleSignup} />
         <Login handleLogin={this.handleLogin} />
       </>
@@ -95,11 +93,34 @@ class App extends React.Component {
 
     const appLanding = (
       <>
-        <h1>Hey</h1>
+        <Router>
+          <div>
+            <ul className="sideBar">
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/about">About</Link>
+              </li>
+              <li>
+                <Link to="/users">Users</Link>
+              </li>
+            </ul>
+            <Switch>
+              <Route path="/about">
+                <h1>About</h1>
+              </Route>
+              <Route path="/users">
+                <h1>Users</h1>
+              </Route>
+              <Route path="/">
+                <h1>Home</h1>
+              </Route>
+            </Switch>
+          </div>
+        </Router>
       </>
     );
-
-    console.log(localStorage);
 
     return (
       <>
@@ -107,7 +128,7 @@ class App extends React.Component {
           authenticated={this.state.authenticated}
           handleLogout={this.handleLogout}
         />
-        <div id="page-container">
+        <div className="content-wrapper">
           {this.state.authenticated ? appLanding : authLanding}
         </div>
       </>
