@@ -1,6 +1,6 @@
 import React from "react";
 
-import FormField from "./components/FormField";
+import FormField from "./FormField";
 
 class Signup extends React.Component {
   state = {

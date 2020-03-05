@@ -2,7 +2,7 @@ import React from "react";
 
 import PropTypes from "prop-types";
 
-import logo from "./assets/logo.png";
+import logo from "../assets/logo.png";
 
 function Nav(props) {
   const loggedInLinks = (

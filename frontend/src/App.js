@@ -1,10 +1,10 @@
 import React from "react";
 
-import Nav from "./Nav";
-import Login from "./Login";
-import Signup from "./Signup";
-import { getCookie } from "./helpers";
-import { shake } from "./animations";
+import Nav from "./components/Nav";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import { getCookie } from "./utils/helpers";
+import { shake } from "./utils/animations";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./styles/core.scss";
 
@@ -95,26 +95,38 @@ class App extends React.Component {
       <>
         <Router>
           <div>
-            <ul className="sideBar">
-              <li>
-                <Link to="/">Home</Link>
+            <ul className="sidebar">
+              <li className="sidebar__links">
+                <Link to="/" className="sidebar__link">
+                  Home
+                </Link>
               </li>
-              <li>
-                <Link to="/about">About</Link>
+              <li className="sidebar__links">
+                <Link to="/teams" className="sidebar__link">
+                  Teams
+                </Link>
               </li>
-              <li>
-                <Link to="/users">Users</Link>
+              <li className="sidebar__links">
+                <Link to="/reports" className="sidebar__link">
+                  Reports
+                </Link>
               </li>
             </ul>
             <Switch>
-              <Route path="/about">
-                <h1>About</h1>
+              <Route path="/reports">
+                <div className="dashboard dashboard--reports">
+                  <h1 className="dashboard__heading">Reports</h1>
+                </div>
               </Route>
-              <Route path="/users">
-                <h1>Users</h1>
+              <Route path="/teams">
+                <div className="dashboard dashboard--teams">
+                  <h1 className="dashboard__heading">Teams</h1>
+                </div>
               </Route>
               <Route path="/">
-                <h1>Home</h1>
+                <div className="dashboard dashboard--home">
+                  <h1 className="dashboard__heading">Home</h1>
+                </div>
               </Route>
             </Switch>
           </div>
