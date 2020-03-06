@@ -43,7 +43,6 @@ class User(AbstractBaseUser):
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=63)
     last_name = models.CharField(max_length=63)
-    is_manager = models.BooleanField(default=False)
 
     objects = UserManager()
 
@@ -58,18 +57,19 @@ class User(AbstractBaseUser):
 class Team(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=127)
-    invite_code = models.CharField(max_length=8, unique=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    invite_code = models.CharField(max_length=8, unique=True, editable=False)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
-
-@receiver(post_save, sender=Team)
-def create_invite_code(sender, instance, created, **kwargs):
-    if created:
-        while True:
-            code = "".join(random.choices(string.ascii_uppercase + string.digits, k=8))
-            if not Team.objects.filter(invite_code=code)[0]:
-                break
-        instance.invite_code = code
+    def save(self, *args, **kwargs):
+        if self.invite_code in [None, ""]:
+            self.invite_code = "".join(
+                random.choices(string.ascii_lowercase + string.digits, k=8)
+            )
+            while self.invite_code in __class__.objects.values("invite_code"):
+                self.invite_code = "".join(
+                    random.choices(string.ascii_lowercase + string.digits, k=8)
+                )
+        return super().save(*args, **kwargs)
 
 
 class Project(models.Model):
