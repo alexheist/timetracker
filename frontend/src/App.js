@@ -3,6 +3,7 @@ import React from "react";
 import Nav from "./components/Nav";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import Home from "./components/Home";
 import { getCookie } from "./utils/helpers";
 import { shake } from "./utils/animations";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -38,15 +39,16 @@ class App extends React.Component {
         }
         return res.json();
       })
-      .then(json => {
-        if (json) {
-          localStorage.setItem("refresh", json.refresh);
-          localStorage.setItem("access", json.access);
-          this.setState({
-            authenticated: true
-          });
+      .then(
+        result => {
+          if (result) {
+            this.setInitialStorage(result);
+          }
+        },
+        error => {
+          console.log(error);
         }
-      });
+      );
   };
 
   handleSignup = (e, data) => {
@@ -66,20 +68,31 @@ class App extends React.Component {
         }
         return res.json();
       })
-      .then(json => {
-        if (json) {
-          localStorage.setItem("refresh", json.refresh);
-          localStorage.setItem("access", json.access);
-          this.setState({
-            authenticated: true
-          });
+      .then(
+        result => {
+          if (result) {
+            this.setInitialStorage(result);
+          }
+        },
+        error => {
+          console.log(error);
         }
-      });
+      );
+  };
+
+  setInitialStorage = json => {
+    localStorage.setItem("refresh", json.refresh);
+    localStorage.setItem("access", json.access);
+    localStorage.setItem("user_id", json.user_id);
+    localStorage.setItem("user_name", json.user_name);
+    localStorage.setItem("user_email", json.user_email);
+    this.setState({
+      authenticated: true
+    });
   };
 
   handleLogout = () => {
-    localStorage.removeItem("refresh");
-    localStorage.removeItem("access");
+    localStorage.clear();
     this.setState({ authenticated: false });
   };
 
@@ -111,8 +124,18 @@ class App extends React.Component {
                   Reports
                 </Link>
               </li>
+              <li className="sidebar__links">
+                <Link to="/account" className="sidebar__link">
+                  Account
+                </Link>
+              </li>
             </ul>
             <Switch>
+              <Route path="/account">
+                <div className="dashboard dashboard--account">
+                  <h1 className="dashboard__heading">Account</h1>
+                </div>
+              </Route>
               <Route path="/reports">
                 <div className="dashboard dashboard--reports">
                   <h1 className="dashboard__heading">Reports</h1>
@@ -124,9 +147,7 @@ class App extends React.Component {
                 </div>
               </Route>
               <Route path="/">
-                <div className="dashboard dashboard--home">
-                  <h1 className="dashboard__heading">Home</h1>
-                </div>
+                <Home></Home>
               </Route>
             </Switch>
           </div>

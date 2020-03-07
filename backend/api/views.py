@@ -1,14 +1,15 @@
 from django.shortcuts import render
-from rest_framework import authentication
 from rest_framework import permissions as rest_permissions
 from rest_framework import response, status, viewsets
+from rest_framework.authentication import SessionAuthentication
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
-from . import authentication as auth
 from . import models, permissions, serializers
+from .authentication import MyTokenObtainPairSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    authentication_classes = (authentication.SessionAuthentication,)
+    authentication_classes = (SessionAuthentication,)
     permission_classes = [permissions.IsPostOrIsAuthenticated]
     queryset = models.User.objects.all()
     serializer_class = serializers.UserSerializer
@@ -18,7 +19,7 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         headers = self.get_success_headers(serializer.data)
-        token = auth.MyTokenObtainPairSerializer.get_token(user)
+        token = MyTokenObtainPairSerializer.get_token(user)
         data = {
             "refresh": str(token),
             "access": str(token.access_token),
@@ -30,7 +31,11 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class TeamViewSet(viewsets.ModelViewSet):
-    authentication_classes = (authentication.SessionAuthentication,)
+    authentication_classes = (JWTAuthentication, SessionAuthentication)
     permission_classes = [rest_permissions.IsAuthenticated]
     queryset = models.Team.objects.all()
     serializer_class = serializers.TeamSerializer
+
+    def get_queryset(self):
+        pk = self.request.GET["pk"]
+        return models.Team.objects.filter(owner=pk)

@@ -9,6 +9,7 @@
   z-index: 1;
   right: 0;
   top: 0;
+  height: 75px;
   width: 100%;
 
   &__logo {
@@ -83,13 +84,14 @@
   left: 0;
   top: 0;
   height: 100%;
+  margin: 0;
   padding-top: 75px;
   width: 150px;
   background-color: $nord2;
 
   &__links {
     list-style-type: none;
-    margin: 1.5em 0;
+    margin: 25px 0;
   }
 
   &__link {
@@ -99,9 +101,13 @@
 }
 
 .dashboard {
+  width: calc(100vw - 190px);
+  height: calc(100vh - 75px);
+  padding-left: 190px;
   padding-top: 75px;
 
   &__heading {
-    text-align: center;
+    text-align: left;
+    margin: 25px 50px;
   }
 }
