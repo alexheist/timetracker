@@ -14,8 +14,6 @@ import {
 } from "react-router-dom";
 import "./styles/core.scss";
 
-// https://medium.com/@dakota.lillie/django-react-jwt-authentication-5015ee00ef9a
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -48,6 +46,9 @@ class App extends React.Component {
         result => {
           if (result) {
             this.setInitialStorage(result);
+            setTimeout(function() {
+              localStorage.clear();
+            }, 60 * 60 * 1000); // 24 hours
           }
         },
         error => {
@@ -77,6 +78,9 @@ class App extends React.Component {
         result => {
           if (result) {
             this.setInitialStorage(result);
+            setTimeout(function() {
+              localStorage.clear();
+            }, 60 * 60 * 1000); // 24 hours
           }
         },
         error => {
@@ -94,25 +98,6 @@ class App extends React.Component {
     this.setState({
       authenticated: true
     });
-  };
-
-  refreshToken = async () => {
-    await fetch("http://localhost:8000/api/token/refresh/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ refresh: localStorage.getItem("refresh") })
-    })
-      .then(res => res.json())
-      .then(
-        result => {
-          localStorage.setItem("access", result.access);
-        },
-        error => {
-          console.log(error);
-        }
-      );
   };
 
   handleLogout = () => {
@@ -211,7 +196,7 @@ class App extends React.Component {
                 </div>
               </Route>
               <Route path="/">
-                <Home refreshToken={this.refreshToken}></Home>
+                <Home></Home>
               </Route>
             </Switch>
           </div>

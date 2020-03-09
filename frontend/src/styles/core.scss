@@ -41,19 +41,12 @@
   }
 }
 
-.auth-form {
-  align-self: center;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 20px 20px 20px $nord4;
-  height: 300px;
-  justify-self: center;
-  margin: 0 20px;
-  max-width: 400px;
+.form {
   padding: 20px;
+  height: calc(100% - 40px);
   position: relative;
   text-align: center;
-  width: 100%;
+  width: calc(100% - 40px);
 
   &__fields {
     -webkit-column-gap: 20px;
@@ -61,7 +54,7 @@
     column-gap: 20px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    margin: 0 auto;
+    grid-auto-rows: min-content;
   }
 
   &__btn {
@@ -75,7 +68,10 @@
     font-weight: bold;
     padding: 7px 10px;
     position: absolute;
-    right: 60px;
+    right: 20px;
+  }
+
+  &--auth {
   }
 }
 
@@ -105,13 +101,50 @@
 }
 
 .dashboard {
-  width: calc(100vw - 190px);
-  height: calc(100vh - 75px);
-  padding-left: 190px;
-  padding-top: 75px;
+  width: calc(100vw - 240px);
+  height: calc(100vh - 100px);
+  padding-left: 240px;
+  padding-top: 100px;
 
   &__heading {
     text-align: left;
-    margin: 25px 50px;
+    margin-bottom: 0;
+  }
+
+  &--home {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.25fr 1fr;
+  }
+}
+
+.card {
+  background-color: #fff;
+  box-shadow: 10px 10px 20px $nord4;
+  width: 500px;
+  height: 250px;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 50px 200px;
+
+  &__heading {
+    text-align: center;
+    margin: 0;
+    align-self: end;
+  }
+
+  &--start {
+    justify-self: center;
+    align-self: start;
+  }
+
+  &--auth {
+    align-self: center;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 20px 20px 20px $nord4;
+    margin: 0 20px;
+    max-width: 400px;
   }
 }

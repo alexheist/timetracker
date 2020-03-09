@@ -22,13 +22,13 @@ class Signup extends React.Component {
   render() {
     return (
       <form
-        className="auth-form"
+        className="card card--auth form"
         id="signup-form"
         onSubmit={e => this.props.handleSignup(e, this.state)}
         method="post"
       >
-        <h2 className="auth-form__header">Sign Up</h2>
-        <div className="auth-form__fields">
+        <h2 className="form__header">Sign Up</h2>
+        <div className="form__fields">
           <FormField
             handleChange={this.handleChange}
             id={"signup-email"}
@@ -71,7 +71,7 @@ class Signup extends React.Component {
             value={this.state.confirmation}
           />
         </div>
-        <input className="auth-form__btn" type="submit" value="Sign Up" />
+        <input className="form__btn" type="submit" value="Sign Up" />
       </form>
     );
   }

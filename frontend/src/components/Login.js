@@ -17,13 +17,13 @@ class Login extends React.Component {
   render() {
     return (
       <form
-        className="auth-form"
+        className="card card--auth form"
         id="login-form"
         method="post"
         onSubmit={e => this.props.handleLogin(e, this.state)}
       >
-        <h2 className="auth-form__header">Login</h2>
-        <div className="auth-form__fields">
+        <h2 className="form__header">Login</h2>
+        <div className="form__fields">
           <FormField
             handleChange={this.handleChange}
             id={"login-email"}
@@ -43,7 +43,7 @@ class Login extends React.Component {
             double={true}
           />
         </div>
-        <input className="auth-form__btn" type="submit" value="Login" />
+        <input className="form__btn" type="submit" value="Login" />
       </form>
     );
   }
