@@ -1,53 +1,20 @@
 import React from "react";
-import FormField from "./FormField";
+import TeamForm from "./TeamForm";
 
-import { refreshToken } from "../utils/helpers";
+import { getCookie, refreshToken } from "../utils/helpers";
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      teams: [],
-      name: ""
+      teams: []
     };
   }
 
-  handleChange = e => {
-    const name = e.target.name;
-    const value = e.target.value;
-    this.setState({
-      [name]: value
-    });
-  };
-
-  fetchWithNewToken = async () => {
-    await refreshToken();
-
-    fetch(
-      `http://localhost:8000/api/teams?pk=${localStorage.getItem("user_id")}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("access")}`
-        }
-      }
-    )
-      .then(res => {
-        return res.json();
-      })
-      .then(
-        result => {
-          console.log(`result: ${JSON.stringify(result)}`);
-          this.setState({ teams: result });
-        },
-        async error => {
-          console.log(`error: ${error}`);
-        }
-      );
-  };
-
-  componentDidMount() {
+  fetchData = async (requireNewToken = false) => {
+    if (requireNewToken) {
+      await refreshToken();
+    }
     fetch(
       `http://localhost:8000/api/teams?pk=${localStorage.getItem("user_id")}`,
       {
@@ -60,14 +27,13 @@ class Home extends React.Component {
     )
       .then(res => {
         if (res.status === 401) {
-          this.fetchWithNewToken();
+          this.fetchData(true); // try again with refreshed access token
         } else {
           return res.json();
         }
       })
       .then(
         result => {
-          console.log(`result: ${JSON.stringify(result)}`);
           if (result !== undefined) {
             this.setState({ teams: result });
           }
@@ -76,7 +42,34 @@ class Home extends React.Component {
           console.log(`error: ${error}`);
         }
       );
+  };
+
+  componentDidMount() {
+    this.fetchData();
   }
+
+  /* TODO: Handle submit when access token expired */
+  handleSubmit = (e, data) => {
+    e.preventDefault();
+    fetch("http://localhost:8000/api/teams/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": getCookie("csrftoken"),
+        Authorization: `Bearer ${localStorage.getItem("access")}`
+      },
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .then(
+        result => {
+          this.setState({ teams: [...this.state.teams, result] });
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  };
 
   render() {
     return (
@@ -84,33 +77,15 @@ class Home extends React.Component {
         <h1 className="dashboard__heading">
           Welcome, {localStorage.getItem("user_name")}
         </h1>
-        {this.state.teams == undefined || this.state.teams.length === 0 ? (
+        {this.state.teams.length === 0 ? (
           <div className="card card--start">
             <h2 className="card__heading">Get started by creating a Team</h2>
-            <form
-              className="form"
-              method="post"
-              onSubmit={e => this.props.handleLogin(e, this.state)}
-            >
-              <div className="form__fields">
-                <FormField
-                  handleChange={this.handleChange}
-                  id={"name"}
-                  name={"name"}
-                  label={"Team Name"}
-                  type={"text"}
-                  value={this.state.name}
-                  double={true}
-                />
-              </div>
-              <input className="form__btn" type="submit" value="Submit" />
-            </form>
+            <TeamForm handleSubmit={this.handleSubmit}></TeamForm>
           </div>
         ) : (
-          this.state.teams.map((team, index) => (
-            <div className="">
-              <p>{team}</p>
-              <p>{index}</p>
+          this.state.teams.map(team => (
+            <div className="card card--team">
+              <h2 className="card__heading">{team.name}</h2>
             </div>
           ))
         )}

@@ -37,5 +37,7 @@ class TeamViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.TeamSerializer
 
     def get_queryset(self):
-        pk = self.request.GET["pk"]
-        return models.Team.objects.filter(owner=pk)
+        pk = self.request.GET.get("pk")
+        if pk:
+            return models.Team.objects.filter(owner=pk)
+        return models.Team.objects.all()

@@ -46,9 +46,6 @@ class App extends React.Component {
         result => {
           if (result) {
             this.setInitialStorage(result);
-            setTimeout(function() {
-              localStorage.clear();
-            }, 60 * 60 * 1000); // 24 hours
           }
         },
         error => {
@@ -78,9 +75,6 @@ class App extends React.Component {
         result => {
           if (result) {
             this.setInitialStorage(result);
-            setTimeout(function() {
-              localStorage.clear();
-            }, 60 * 60 * 1000); // 24 hours
           }
         },
         error => {
@@ -95,6 +89,9 @@ class App extends React.Component {
     localStorage.setItem("user_id", json.user_id);
     localStorage.setItem("user_name", json.user_name);
     localStorage.setItem("user_email", json.user_email);
+    setTimeout(function() {
+      localStorage.clear();
+    }, 60 * 60 * 1000); // 24 hours
     this.setState({
       authenticated: true
     });
