@@ -1,7 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
-
 import FormField from "./FormField";
+
+import PropTypes from "prop-types";
 
 class Login extends React.Component {
   state = { email: "", password: "" };

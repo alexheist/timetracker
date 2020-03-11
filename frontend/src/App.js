@@ -3,15 +3,9 @@ import React from "react";
 import Nav from "./components/Nav";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import Home from "./components/Home";
+import Dashboard from "./Dashboard";
 import { getCookie } from "./utils/helpers";
 import { shake } from "./utils/animations";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  NavLink
-} from "react-router-dom";
 import "./styles/core.scss";
 
 class App extends React.Component {
@@ -103,101 +97,10 @@ class App extends React.Component {
   };
 
   render() {
-    const authLanding = (
+    const authForms = (
       <>
         <Signup handleSignup={this.handleSignup} />
         <Login handleLogin={this.handleLogin} />
-      </>
-    );
-
-    const appLanding = (
-      <>
-        <Router>
-          <div>
-            <ul className="sidebar">
-              <li className="sidebar__links">
-                <NavLink
-                  strict
-                  exact
-                  to="/"
-                  className="sidebar__link"
-                  activeClassName="sidebar__link--active"
-                >
-                  Home
-                </NavLink>
-              </li>
-              <li className="sidebar__links">
-                <NavLink
-                  strict
-                  exact
-                  to="/teams"
-                  className="sidebar__link"
-                  activeClassName="sidebar__link--active"
-                >
-                  Teams
-                </NavLink>
-              </li>
-              <li className="sidebar__links">
-                <NavLink
-                  strict
-                  exact
-                  to="/projects"
-                  className="sidebar__link"
-                  activeClassName="sidebar__link--active"
-                >
-                  Projects
-                </NavLink>
-              </li>
-              <li className="sidebar__links">
-                <NavLink
-                  strict
-                  exact
-                  to="/reports"
-                  className="sidebar__link"
-                  activeClassName="sidebar__link--active"
-                >
-                  Reports
-                </NavLink>
-              </li>
-              <li className="sidebar__links">
-                <NavLink
-                  strict
-                  exact
-                  to="/account"
-                  className="sidebar__link"
-                  activeClassName="sidebar__link--active"
-                >
-                  Account
-                </NavLink>
-              </li>
-            </ul>
-            <Switch>
-              <Route path="/account">
-                <div className="dashboard dashboard--account">
-                  <h1 className="dashboard__heading">Account</h1>
-                </div>
-              </Route>
-              <Route path="/reports">
-                <div className="dashboard dashboard--reports">
-                  <h1 className="dashboard__heading">Reports</h1>
-                </div>
-              </Route>
-              <Route path="/projects">
-                <div className="dashboard dashboard--reports">
-                  <h1 className="dashboard__heading">Projects</h1>
-                </div>
-              </Route>
-              <Route path="/teams">
-                <div className="dashboard dashboard--teams">
-                  <h1 className="dashboard__heading">Teams</h1>
-                </div>
-              </Route>
-              <Route path="/">
-                <Home></Home>
-              </Route>
-            </Switch>
-          </div>
-        </Router>
       </>
     );
 
@@ -208,7 +111,7 @@ class App extends React.Component {
           handleLogout={this.handleLogout}
         />
         <div className="content-wrapper">
-          {this.state.authenticated ? appLanding : authLanding}
+          {this.state.authenticated ? <Dashboard></Dashboard> : authForms}
         </div>
       </>
     );
