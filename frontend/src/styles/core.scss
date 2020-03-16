@@ -5,12 +5,12 @@
   color: $nord6;
   display: grid;
   grid-template-columns: 100px 200px 1fr;
+  height: 75px;
   position: fixed;
-  z-index: 1;
   right: 0;
   top: 0;
-  height: 75px;
   width: 100%;
+  z-index: 1;
 
   &__logo {
     align-self: center;
@@ -42,8 +42,8 @@
 }
 
 .form {
-  padding: 20px;
   height: calc(100% - 40px);
+  padding: 20px;
   position: relative;
   text-align: center;
   width: calc(100% - 40px);
@@ -53,8 +53,9 @@
     -moz-column-gap: 20px;
     column-gap: 20px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: -webkit-min-content;
     grid-auto-rows: min-content;
+    grid-template-columns: 1fr 1fr;
   }
 
   &__btn {
@@ -76,39 +77,58 @@
 }
 
 .sidebar {
-  position: fixed;
-  left: 0;
-  top: 0;
+  background-color: $nord1;
   height: 100%;
+  left: 0;
   margin: 0;
   padding-top: 75px;
+  position: fixed;
+  top: 0;
   width: 150px;
-  background-color: $nord1;
 
   &__links {
     list-style-type: none;
-    margin: 25px 0;
+    margin: 25px 0 0 0;
   }
 
   &__link {
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    background-color: transparent;
+    border: none;
     color: $nord4;
+    cursor: pointer;
+    font-size: 1em;
+    margin: 0;
+    outline: transparent;
+    padding: 0;
     text-decoration: none;
 
     &--active {
       color: $nord8;
     }
+
+    &--dropdown {
+      background-color: $nord0;
+      border-radius: 5px 0 0 5px;
+      display: block;
+      margin-top: 5px;
+      padding: 10px 30px;
+      width: calc(100% - 60px);
+    }
   }
 }
 
 .dashboard {
-  width: calc(100vw - 240px);
   height: calc(100vh - 100px);
   padding-left: 240px;
   padding-top: 100px;
+  width: calc(100vw - 240px);
 
   &__heading {
-    text-align: left;
     margin-bottom: 0;
+    text-align: left;
   }
 
   &--home {
@@ -120,23 +140,23 @@
 
 .card {
   background-color: #fff;
-  box-shadow: 10px 10px 20px $nord4;
-  width: 500px;
-  height: 250px;
   border-radius: 5px;
+  box-shadow: 10px 10px 20px $nord4;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 50px 200px;
+  height: 250px;
+  width: 500px;
 
   &__heading {
-    text-align: center;
-    margin: 0;
     align-self: end;
+    margin: 0;
+    text-align: center;
   }
 
   &--start {
-    justify-self: center;
     align-self: start;
+    justify-self: center;
   }
 
   &--auth {

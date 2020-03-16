@@ -1,6 +1,7 @@
 import React from "react";
 
 import Home from "./components/Home";
+import Team from "./components/Team";
 import { getCookie, refreshToken } from "./utils/helpers";
 import {
   BrowserRouter as Router,
@@ -15,7 +16,8 @@ class Dashboard extends React.Component {
     this.state = {
       teams: [],
       projects: [],
-      isFetching: true
+      isFetching: true,
+      showTeams: false
     };
   }
 
@@ -79,6 +81,12 @@ class Dashboard extends React.Component {
       );
   };
 
+  teamDropdown = () => {
+    this.setState(prevState => ({
+      showTeams: !prevState.showTeams
+    }));
+  };
+
   render() {
     return (
       <Router>
@@ -96,38 +104,25 @@ class Dashboard extends React.Component {
               </NavLink>
             </li>
             <li className="sidebar__links">
-              <NavLink
-                strict
-                exact
-                to="/teams"
-                className="sidebar__link"
-                activeClassName="sidebar__link--active"
-              >
+              <button className="sidebar__link" onClick={this.teamDropdown}>
                 Teams
-              </NavLink>
+              </button>
             </li>
-            <li className="sidebar__links">
-              <NavLink
-                strict
-                exact
-                to="/projects"
-                className="sidebar__link"
-                activeClassName="sidebar__link--active"
-              >
-                Projects
-              </NavLink>
-            </li>
-            <li className="sidebar__links">
-              <NavLink
-                strict
-                exact
-                to="/reports"
-                className="sidebar__link"
-                activeClassName="sidebar__link--active"
-              >
-                Reports
-              </NavLink>
-            </li>
+            {this.state.showTeams ? (
+              this.state.teams.map(team => (
+                <NavLink
+                  strict
+                  exact
+                  to={`/teams/${team.id}`}
+                  className="sidebar__link sidebar__link--dropdown"
+                  activeClassName="sidebar__link--active"
+                >
+                  {team.name}
+                </NavLink>
+              ))
+            ) : (
+              <></>
+            )}
             <li className="sidebar__links">
               <NavLink
                 strict
@@ -146,21 +141,12 @@ class Dashboard extends React.Component {
                 <h1 className="dashboard__heading">Account</h1>
               </div>
             </Route>
-            <Route path="/reports">
-              <div className="dashboard dashboard--reports">
-                <h1 className="dashboard__heading">Reports</h1>
-              </div>
-            </Route>
-            <Route path="/projects">
-              <div className="dashboard dashboard--reports">
-                <h1 className="dashboard__heading">Projects</h1>
-              </div>
-            </Route>
-            <Route path="/teams">
-              <div className="dashboard dashboard--teams">
-                <h1 className="dashboard__heading">Teams</h1>
-              </div>
-            </Route>
+            <Route
+              path="/teams/:id"
+              children={({ match }) => (
+                <Team teams={this.state.teams} match={match}></Team>
+              )}
+            ></Route>
             <Route path="/">
               <Home
                 teams={this.state.teams}

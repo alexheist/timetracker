@@ -23,11 +23,7 @@ class Home extends React.Component {
             <TeamForm handleSubmit={this.props.handleSubmit}></TeamForm>
           </div>
         ) : (
-          this.props.teams.map(team => (
-            <div className="card card--team">
-              <h2 className="card__heading">{team.name}</h2>
-            </div>
-          ))
+          <></>
         )}
       </div>
     );
