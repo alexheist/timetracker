@@ -7,7 +7,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  NavLink
+  NavLink,
 } from "react-router-dom";
 
 class Dashboard extends React.Component {
@@ -17,7 +17,6 @@ class Dashboard extends React.Component {
       teams: [],
       projects: [],
       isFetching: true,
-      showTeams: false
     };
   }
 
@@ -35,11 +34,11 @@ class Dashboard extends React.Component {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("access")}`
-        }
+          Authorization: `Bearer ${localStorage.getItem("access")}`,
+        },
       }
     )
-      .then(res => {
+      .then((res) => {
         if (res.status === 401) {
           this.fetchTeams(true); // try again with refreshed access token
         } else {
@@ -47,12 +46,12 @@ class Dashboard extends React.Component {
         }
       })
       .then(
-        result => {
+        (result) => {
           if (result !== undefined) {
             this.setState({ teams: result, isFetching: false });
           }
         },
-        error => {
+        (error) => {
           console.log(`error: ${error}`);
         }
       );
@@ -66,25 +65,19 @@ class Dashboard extends React.Component {
       headers: {
         "Content-Type": "application/json",
         "X-CSRFToken": getCookie("csrftoken"),
-        Authorization: `Bearer ${localStorage.getItem("access")}`
+        Authorization: `Bearer ${localStorage.getItem("access")}`,
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
-      .then(res => res.json())
+      .then((res) => res.json())
       .then(
-        result => {
+        (result) => {
           this.setState({ teams: [...this.state.teams, result] });
         },
-        error => {
+        (error) => {
           console.log(error);
         }
       );
-  };
-
-  teamDropdown = () => {
-    this.setState(prevState => ({
-      showTeams: !prevState.showTeams
-    }));
   };
 
   render() {
@@ -104,25 +97,19 @@ class Dashboard extends React.Component {
               </NavLink>
             </li>
             <li className="sidebar__links">
-              <button className="sidebar__link" onClick={this.teamDropdown}>
-                Teams
-              </button>
+              <p className="sidebar__title">Teams</p>
             </li>
-            {this.state.showTeams ? (
-              this.state.teams.map(team => (
-                <NavLink
-                  strict
-                  exact
-                  to={`/teams/${team.id}`}
-                  className="sidebar__link sidebar__link--dropdown"
-                  activeClassName="sidebar__link--active"
-                >
-                  {team.name}
-                </NavLink>
-              ))
-            ) : (
-              <></>
-            )}
+            {this.state.teams.map((team) => (
+              <NavLink
+                strict
+                exact
+                to={`/teams/${team.id}`}
+                className="sidebar__link sidebar__link--dropdown"
+                activeClassName="sidebar__link--active"
+              >
+                {team.name}
+              </NavLink>
+            ))}
             <li className="sidebar__links">
               <NavLink
                 strict

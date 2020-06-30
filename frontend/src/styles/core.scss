@@ -71,9 +71,6 @@
     position: absolute;
     right: 20px;
   }
-
-  &--auth {
-  }
 }
 
 .sidebar {
@@ -86,6 +83,13 @@
   top: 0;
   width: 150px;
 
+  &__title {
+    color: $nord4;
+    border-bottom: 1px solid $nord4;
+    margin: 0 0 .25em;
+    padding-bottom: .25em;
+  }
+
   &__links {
     list-style-type: none;
     margin: 25px 0 0 0;
@@ -93,8 +97,8 @@
 
   &__link {
     -webkit-appearance: none;
-       -moz-appearance: none;
-            appearance: none;
+    -moz-appearance: none;
+    appearance: none;
     background-color: transparent;
     border: none;
     color: $nord4;
