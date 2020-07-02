@@ -2,6 +2,7 @@ import React from "react";
 
 import Home from "./components/Home";
 import Team from "./components/Team";
+import TeamForm from "./components/TeamForm";
 import { getCookie, refreshToken } from "./utils/helpers";
 import {
   BrowserRouter as Router,
@@ -96,7 +97,7 @@ class Dashboard extends React.Component {
                 Home
               </NavLink>
             </li>
-            <li className="sidebar__links">
+            <li className="sidebar__links sidebar__links--action">
               <p className="sidebar__title">Teams</p>
             </li>
             {this.state.teams.map((team) => (
