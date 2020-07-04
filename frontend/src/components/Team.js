@@ -6,7 +6,11 @@ import PropTypes from "prop-types";
 class Team extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { team: undefined, isFetching: true, displaySettings: false };
+    this.state = {
+      isFetching: true,
+      displaySettings: false,
+      team: undefined,
+    };
   }
 
   componentDidMount() {
@@ -85,17 +89,28 @@ class Team extends React.Component {
         {this.state.isFetching ? (
           <></>
         ) : this.state.displaySettings === true ? (
-          // <div className="card card--start">
-          //   <h2 className="card__heading">Get started by creating a Team</h2>
-          //   {/* <TeamForm handleSubmit={this.props.handleSubmit}></TeamForm> */}
-          // </div>
-          <div>
-            <h2 className="dashboard__heading">Settings</h2>
+          <div className="dashboard__content settings">
+            <div className="settings__member">
+              <div className="settings__heading">
+                <h2>Members</h2>
+                <button class="settings__btn">Add</button>
+              </div>
+            </div>
+            <div className="settings__project">
+              <div className="settings__heading">
+                <h2>Projects</h2>
+                <button class="settings__btn">Add</button>
+              </div>
+            </div>
+            <div className="settings__payperiod">
+              <div className="settings__heading">
+                <h2>Pay Period</h2>
+                <button class="settings__btn">Edit</button>
+              </div>
+              <p>{this.state.team.pay_period_string}</p>
+            </div>
           </div>
         ) : (
-          // <div className="card card--team">
-          //   <h2 className="card__heading">{this.state.team.name}</h2>
-          // </div>
           <div>
             <h2 className="dashboard__heading">Details</h2>
           </div>

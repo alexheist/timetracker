@@ -8,6 +8,8 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from . import choices, helpers
+
 
 class UserManager(BaseUserManager):
     def create_user(
@@ -58,7 +60,21 @@ class Team(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=127)
     invite_code = models.CharField(max_length=8, unique=True, editable=False)
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="team_owner"
+    )
+    members = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, blank=True, related_name="team_members"
+    )
+    pay_period_frequency = models.CharField(
+        max_length=2, choices=choices.PERIOD_FREQUENCY, default="BW"
+    )
+    pay_recurrence_day = models.CharField(
+        max_length=2, choices=choices.PERIOD_RECURRENCE_DAY, default="MO"
+    )
+    pay_recurrence_date = models.IntegerField(
+        choices=choices.PERIOD_RECURRENCE_DATE, null=True, blank=True
+    )
 
     def save(self, *args, **kwargs):
         if self.invite_code in [None, ""]:
@@ -70,6 +86,19 @@ class Team(models.Model):
                     random.choices(string.ascii_lowercase + string.digits, k=8)
                 )
         return super().save(*args, **kwargs)
+
+    @property
+    def pay_period_string(self):
+        if self.pay_period_frequency == "IR":
+            return self.get_pay_period_frequency_display()
+        elif self.pay_recurrence_date:
+            frequency = self.get_pay_period_frequency_display()
+            recurrence_date = helpers.ordinal(self.pay_recurrence_date)
+            return f"{frequency} on the {recurrence_date}"
+        else:
+            frequency = self.get_pay_period_frequency_display()
+            recurrence_day = self.get_pay_recurrence_day_display()
+            return f"{frequency} starting on {recurrence_day}s"
 
 
 class Project(models.Model):

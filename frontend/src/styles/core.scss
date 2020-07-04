@@ -86,8 +86,8 @@
   &__title {
     color: $nord4;
     border-bottom: 1px solid $nord4;
-    margin: 0 0 .25em;
-    padding-bottom: .25em;
+    margin: 0 0 0.25em;
+    padding-bottom: 0.25em;
   }
 
   &__links {
@@ -151,13 +151,55 @@
     width: 100%;
     border: none;
     font-size: 1.2em;
-    padding: 10px 0;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
     outline: none;
     cursor: pointer;
 
     &--active {
       border-bottom: 2px solid $nord9;
     }
+  }
+
+  &__content {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 10px 10px 20px $nord4;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.settings {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1.5fr 0.5fr;
+  padding: 0 20px;
+
+  &__heading {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+  }
+
+  &__btn {
+    margin-left: 15px;
+    background-color: transparent;
+    color: $nord8;
+    border: none;
+    outline: none;
+    padding: 0;
+    font-size: .9em;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__payperiod {
+    grid-column: 1/3;
+    grid-row: 2/3;
   }
 }
 

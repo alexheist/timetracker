@@ -14,6 +14,21 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class TeamSerializer(serializers.ModelSerializer):
+    members = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+
     class Meta:
         model = models.Team
-        fields = ("id", "name", "invite_code", "owner")
+        fields = (
+            "id",
+            "name",
+            "invite_code",
+            "owner",
+            "members",
+            "pay_period_string",
+        )
+
+
+class ProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Project
+        fields = ("id", "client", "name", "description")
