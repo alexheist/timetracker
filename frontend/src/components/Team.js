@@ -55,11 +55,11 @@ class Team extends React.Component {
       );
   };
 
-  toggleTab = () => {
-    this.setState((prevState) => ({
-      displaySettings: !prevState.displaySettings,
+  toggleTab(isSettings) {
+    this.setState(() => ({
+      displaySettings: isSettings,
     }));
-  };
+  }
 
   render() {
     return (
@@ -71,7 +71,7 @@ class Team extends React.Component {
                 ? "dashboard__tab"
                 : "dashboard__tab dashboard__tab--active"
             }
-            onClick={this.toggleTab}
+            onClick={() => this.toggleTab(false)}
           >
             Details
           </button>
@@ -81,7 +81,7 @@ class Team extends React.Component {
                 ? "dashboard__tab dashboard__tab--active"
                 : "dashboard__tab"
             }
-            onClick={this.toggleTab}
+            onClick={() => this.toggleTab(true)}
           >
             Settings
           </button>
@@ -95,11 +95,21 @@ class Team extends React.Component {
                 <h2>Members</h2>
                 <button class="settings__btn">Add</button>
               </div>
+              <div className="settings__table">
+                {this.state.team.members.map((member) => (
+                  <p>{member}</p>
+                ))}
+              </div>
             </div>
             <div className="settings__project">
               <div className="settings__heading">
                 <h2>Projects</h2>
                 <button class="settings__btn">Add</button>
+              </div>
+              <div className="settings__table">
+                {this.state.team.projects.map((project) => (
+                  <p>{project}</p>
+                ))}
               </div>
             </div>
             <div className="settings__payperiod">
